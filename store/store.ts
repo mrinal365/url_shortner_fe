@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './slices/authSlice';
-import urlReducer from './slices/urlSlice';
+
+// dummy reducer with empty state
+const dummyReducer = (state = {}) => state;
 
 export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    url: urlReducer,
-  },
+  reducer: dummyReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

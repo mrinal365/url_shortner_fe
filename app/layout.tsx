@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { StoreProvider } from "@/providers/StoreProvider";
 import { APP_CONFIG } from "@/constants/app.constants";
+import OpticBackground from "@/components/common/OpticBackground";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,7 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans relative">
+        <OpticBackground />
         <StoreProvider>{children}</StoreProvider>
       </body>
     </html>

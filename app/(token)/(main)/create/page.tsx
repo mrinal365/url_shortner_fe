@@ -19,7 +19,7 @@ export default function CreateLinkPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#e8ebe6] text-[#0e0f0c] flex flex-col justify-between selection:bg-[#9fe870] selection:text-[#0e0f0c]">
+    <div className="min-h-screen text-[#0e0f0c] flex flex-col justify-between selection:bg-[#9fe870] selection:text-[#0e0f0c]">
       <Navbar currentPage="create" />
 
       <main className="w-full max-w-3xl mx-auto px-6 py-8 sm:py-12 flex-1">

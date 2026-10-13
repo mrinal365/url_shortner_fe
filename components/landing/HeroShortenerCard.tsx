@@ -135,7 +135,7 @@ export const HeroShortenerCard: React.FC = () => {
               <button
                 type="button"
                 onClick={handlePaste}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0e0f0c] bg-[#e8ebe6] hover:bg-[#dce0da] px-3 py-1.5 rounded-full transition cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0e0f0c] bg-[#f4f6f2] hover:bg-[#dce0da] px-3 py-1.5 rounded-full transition cursor-pointer"
                 title="Paste link from clipboard"
               >
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -158,7 +158,7 @@ export const HeroShortenerCard: React.FC = () => {
         <form onSubmit={handleShortenUrl} className="space-y-3">
           <div className="group/input relative bg-[#f8faf7] rounded-[20px] p-2 sm:p-2.5 border-2 border-[#0e0f0c]/10 hover:border-[#0e0f0c]/25 focus-within:border-[#0e0f0c] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#0e0f0c]/10 transition-all flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <div className="flex items-center flex-1 min-w-0 px-1">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] bg-[#e8ebe6] text-[#0e0f0c] flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] bg-[#f4f6f2] text-[#0e0f0c] flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-[#0e0f0c]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-1.414l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                 </svg>
@@ -178,7 +178,7 @@ export const HeroShortenerCard: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setInputUrl('')}
-                  className="w-7 h-7 rounded-full text-[#868685] hover:text-[#0e0f0c] hover:bg-[#e8ebe6] flex items-center justify-center transition shrink-0 cursor-pointer text-xs"
+                  className="w-7 h-7 rounded-full text-[#868685] hover:text-[#0e0f0c] hover:bg-[#f4f6f2] flex items-center justify-center transition shrink-0 cursor-pointer text-xs"
                   title="Clear input"
                 >
                   ✕
@@ -209,7 +209,7 @@ export const HeroShortenerCard: React.FC = () => {
               className={`inline-flex items-center gap-2 text-xs font-bold py-1.5 px-3 rounded-full transition-all cursor-pointer ${
                 showAliasInput
                   ? 'bg-[#0e0f0c] text-white'
-                  : 'bg-[#f4f6f2] hover:bg-[#e8ebe6] text-[#0e0f0c] border border-[#0e0f0c]/10'
+                  : 'bg-[#f4f6f2] hover:bg-[#f4f6f2] text-[#0e0f0c] border border-[#0e0f0c]/10'
               }`}
             >
               <svg
@@ -246,7 +246,7 @@ export const HeroShortenerCard: React.FC = () => {
                   <span className="text-[11px] text-[#868685]">Letters, numbers, and hyphens</span>
                 </div>
                 <div className="flex items-center">
-                  <span className="bg-[#e8ebe6] px-3.5 py-2.5 text-xs sm:text-sm font-mono font-bold text-[#0e0f0c] border border-r-0 border-[#0e0f0c]/20 rounded-l-[14px] flex items-center gap-1.5 shrink-0 select-none">
+                  <span className="bg-[#f4f6f2] px-3.5 py-2.5 text-xs sm:text-sm font-mono font-bold text-[#0e0f0c] border border-r-0 border-[#0e0f0c]/20 rounded-l-[14px] flex items-center gap-1.5 shrink-0 select-none">
                     <svg className="w-3.5 h-3.5 text-[#054d28]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918" />
                     </svg>
@@ -284,7 +284,7 @@ export const HeroShortenerCard: React.FC = () => {
         )}
 
         {latestUrl && (
-          <div className="mt-5 pt-5 border-t border-[#e8ebe6] text-left animate-in fade-in duration-300">
+          <div className="mt-5 pt-5 border-t border-[#f4f6f2] text-left animate-in fade-in duration-300">
             <div className="bg-[#f8faf7] border border-[#0e0f0c]/10 rounded-[22px] p-4 sm:p-5 shadow-xs">
               <div className="flex items-center justify-between pb-3 border-b border-[#0e0f0c]/8 mb-3">
                 <div className="flex items-center gap-2">

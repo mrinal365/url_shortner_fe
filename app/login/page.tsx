@@ -6,7 +6,7 @@ import LoginForm from '@/components/auth/LoginForm';
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#e8ebe6] text-[#0e0f0c] flex flex-col justify-between selection:bg-[#9fe870] selection:text-[#0e0f0c]">
+    <div className="min-h-screen text-[#0e0f0c] flex flex-col justify-between selection:bg-[#9fe870] selection:text-[#0e0f0c]">
       <Navbar currentPage="login" />
 
       <main className="w-full max-w-7xl mx-auto px-6 py-8 sm:py-12 flex-1 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">

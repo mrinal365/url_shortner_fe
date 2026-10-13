@@ -7,11 +7,11 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const variantStyles: Record<NonNullable<CardProps['variant']>, string> = {
   default:
-    'bg-white text-[#0e0f0c] border border-[#0e0f0c]/5 shadow-[0_2px_12px_rgba(0,0,0,0.02)]',
+    'bg-[#f8faf7] text-[#0e0f0c] border border-[#0e0f0c]/8 shadow-xs hover:border-[#0e0f0c]/15',
   elevated:
     'bg-white text-[#0e0f0c] border border-[#0e0f0c]/10 shadow-[0_20px_50px_rgba(14,15,12,0.06),0_1px_3px_rgba(14,15,12,0.03)]',
   sage:
-    'bg-[#e8ebe6] text-[#0e0f0c] border border-[#0e0f0c]/10',
+    'bg-[#f4f6f2] text-[#0e0f0c] border border-[#0e0f0c]/8',
   green:
     'bg-[#e2f6d5] text-[#0e0f0c] border border-[#c5edab]',
   dark:

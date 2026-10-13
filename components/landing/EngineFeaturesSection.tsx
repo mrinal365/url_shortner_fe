@@ -18,7 +18,7 @@ export const EngineFeaturesSection: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card variant="default" padding="lg" className="flex items-start gap-5">
-          <div className="w-12 h-12 rounded-[16px] bg-[#e8ebe6] text-[#0e0f0c] flex items-center justify-center text-xl shrink-0">
+          <div className="w-12 h-12 rounded-[16px] bg-[#f4f6f2] text-[#0e0f0c] flex items-center justify-center text-xl shrink-0">
             🧬
           </div>
           <div>
@@ -27,7 +27,7 @@ export const EngineFeaturesSection: React.FC = () => {
             </h3>
             <p className="mt-2 text-base text-[#454745] leading-relaxed">
               Override random characters and create branded, memorable aliases (e.g.,{' '}
-              <code className="bg-[#e8ebe6] px-1.5 py-0.5 rounded text-sm font-mono text-[#0e0f0c]">
+              <code className="bg-[#f4f6f2] px-1.5 py-0.5 rounded text-sm font-mono text-[#0e0f0c]">
                 fibr.click/your-brand
               </code>
               ) to elevate brand recognition.
@@ -69,7 +69,7 @@ export const EngineFeaturesSection: React.FC = () => {
         </Card>
 
         <Card variant="default" padding="lg" className="flex items-start gap-5">
-          <div className="w-12 h-12 rounded-[16px] bg-[#e8ebe6] text-[#0e0f0c] flex items-center justify-center text-xl shrink-0">
+          <div className="w-12 h-12 rounded-[16px] bg-[#f4f6f2] text-[#0e0f0c] flex items-center justify-center text-xl shrink-0">
             🔒
           </div>
           <div>

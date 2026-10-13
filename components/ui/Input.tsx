@@ -29,7 +29,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const variantStyles =
       variant === 'card'
-        ? 'bg-[#f8faf7] border-2 border-[#0e0f0c]/10 focus-within:border-[#0e0f0c] focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(159,232,112,0.3)]'
+        ? 'bg-[#f8faf7] border-2 border-[#0e0f0c]/10 focus-within:border-[#0e0f0c] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#0e0f0c]/10'
         : 'bg-white border border-[#0e0f0c]/25 focus-within:border-[#0e0f0c] focus-within:ring-1 focus-within:ring-[#0e0f0c]';
 
     return (

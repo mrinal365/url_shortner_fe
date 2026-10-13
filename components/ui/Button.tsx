@@ -19,7 +19,7 @@ export interface ButtonProps
 
 const variantStyles: Record<NonNullable<ButtonProps['variant']>, string> = {
   primary:
-    'bg-[#9fe870] hover:bg-[#cdffad] active:bg-[#c5edab] text-[#0e0f0c] shadow-[0_4px_14px_rgba(159,232,112,0.4)] disabled:shadow-none',
+    'bg-[#9fe870] hover:bg-[#b0f283] active:bg-[#8ee05b] text-[#0e0f0c] font-bold shadow-xs hover:shadow-sm disabled:shadow-none',
   secondary:
     'bg-[#f4f6f2] hover:bg-[#e8ebe6] active:bg-[#dfe3dc] text-[#0e0f0c] border border-[#0e0f0c]/10',
   tertiary:

@@ -119,10 +119,8 @@ export const HeroShortenerCard: React.FC = () => {
     : '';
 
   return (
-    <div className="mt-10 max-w-3xl mx-auto relative group">
-      <div className="absolute -inset-1.5 bg-gradient-to-r from-[#9fe870]/30 via-[#c5edab]/40 to-[#9fe870]/30 rounded-[32px] blur-xl opacity-60 group-hover:opacity-90 transition-all duration-700 pointer-events-none" />
-
-      <div className="relative bg-white rounded-[28px] p-4 sm:p-7 shadow-[0_20px_50px_rgba(14,15,12,0.06),0_1px_3px_rgba(14,15,12,0.03)] border border-[#0e0f0c]/10 text-left transition-all">
+    <div className="mt-10 max-w-3xl mx-auto relative">
+      <div className="bg-white rounded-[28px] p-4 sm:p-7 shadow-[0_20px_50px_-12px_rgba(14,15,12,0.09),0_4px_16px_rgba(14,15,12,0.04)] border border-[#0e0f0c]/10 text-left transition-all hover:shadow-[0_28px_60px_-14px_rgba(14,15,12,0.12),0_6px_20px_rgba(14,15,12,0.05)]">
         <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#0e0f0c]/5">
           <div className="inline-flex items-center gap-2 bg-[#f4f6f2] text-[#0e0f0c] text-xs font-bold px-3 py-1.5 rounded-full border border-[#0e0f0c]/5">
             <span className="relative flex h-2 w-2">
@@ -158,7 +156,7 @@ export const HeroShortenerCard: React.FC = () => {
         </div>
 
         <form onSubmit={handleShortenUrl} className="space-y-3">
-          <div className="group/input relative bg-[#f8faf7] rounded-[20px] p-2 sm:p-2.5 border-2 border-[#0e0f0c]/10 hover:border-[#0e0f0c]/25 focus-within:border-[#0e0f0c] focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(159,232,112,0.3)] transition-all flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <div className="group/input relative bg-[#f8faf7] rounded-[20px] p-2 sm:p-2.5 border-2 border-[#0e0f0c]/10 hover:border-[#0e0f0c]/25 focus-within:border-[#0e0f0c] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#0e0f0c]/10 transition-all flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <div className="flex items-center flex-1 min-w-0 px-1">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] bg-[#e8ebe6] text-[#0e0f0c] flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-[#0e0f0c]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -287,8 +285,8 @@ export const HeroShortenerCard: React.FC = () => {
 
         {latestUrl && (
           <div className="mt-5 pt-5 border-t border-[#e8ebe6] text-left animate-in fade-in duration-300">
-            <div className="bg-gradient-to-br from-[#e2f6d5] to-[#f2faec] border-2 border-[#c5edab] rounded-[22px] p-4 sm:p-5 shadow-sm">
-              <div className="flex items-center justify-between pb-3 border-b border-[#c5edab]/60 mb-3">
+            <div className="bg-[#f8faf7] border border-[#0e0f0c]/10 rounded-[22px] p-4 sm:p-5 shadow-xs">
+              <div className="flex items-center justify-between pb-3 border-b border-[#0e0f0c]/8 mb-3">
                 <div className="flex items-center gap-2">
                   <span className="inline-flex items-center gap-1.5 bg-[#054d28] text-[#9fe870] font-bold text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#9fe870] animate-pulse"></span>
@@ -305,7 +303,7 @@ export const HeroShortenerCard: React.FC = () => {
                     setInputUrl('');
                     setAlias('');
                   }}
-                  className="text-xs font-semibold text-[#054d28] hover:text-[#0e0f0c] underline transition cursor-pointer"
+                  className="text-xs font-semibold text-[#454745] hover:text-[#0e0f0c] underline transition cursor-pointer"
                 >
                   + Shorten another link
                 </button>
@@ -313,7 +311,7 @@ export const HeroShortenerCard: React.FC = () => {
 
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2.5 bg-white/85 backdrop-blur-sm border border-[#054d28]/15 rounded-[14px] px-3.5 py-2.5 shadow-xs">
+                  <div className="flex items-center gap-2.5 bg-white border border-[#0e0f0c]/10 rounded-[14px] px-3.5 py-2.5 shadow-xs">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#2ead4b] shrink-0" />
                     <span className="font-mono text-base sm:text-lg font-black text-[#0e0f0c] truncate select-all">
                       {shortUrlFull}
@@ -377,7 +375,7 @@ export const HeroShortenerCard: React.FC = () => {
               </div>
 
               {showQr && (
-                <div className="mt-4 pt-4 border-t border-[#c5edab] flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/70 backdrop-blur-sm rounded-[16px] p-4 animate-in fade-in">
+                <div className="mt-4 pt-4 border-t border-[#0e0f0c]/8 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/70 backdrop-blur-sm rounded-[16px] p-4 animate-in fade-in">
                   <div className="flex items-center gap-4">
                     <div className="bg-white p-2.5 rounded-[12px] border border-[#0e0f0c]/10 shadow-sm shrink-0">
                       <img

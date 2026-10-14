@@ -90,3 +90,37 @@ body {
   animation: liquid-fluid-pulse 8s ease-in-out infinite;
   will-change: transform, opacity;
 }
+
+@keyframes fibrBallBounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateY(-22px);
+    opacity: 1;
+  }
+}
+
+@keyframes fibrShadowScale {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(0.35);
+    opacity: 0.1;
+  }
+}
+
+.fibr-ball-1 { animation: fibrBallBounce 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite both 0s; }
+.fibr-ball-2 { animation: fibrBallBounce 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite both 0.14s; }
+.fibr-ball-3 { animation: fibrBallBounce 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite both 0.28s; }
+.fibr-ball-4 { animation: fibrBallBounce 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite both 0.42s; }
+
+.fibr-shadow-1 { animation: fibrShadowScale 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite both 0s; }
+.fibr-shadow-2 { animation: fibrShadowScale 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite both 0.14s; }
+.fibr-shadow-3 { animation: fibrShadowScale 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite both 0.28s; }
+.fibr-shadow-4 { animation: fibrShadowScale 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite both 0.42s; }
+
+

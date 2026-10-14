@@ -1,11 +1,13 @@
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const API_TIMEOUT = 15000;
 
+export const TOKEN_KEY = 'token_key';
+export const token_key = TOKEN_KEY;
+
 export const STORAGE_KEYS = {
-  AUTH_TOKEN: 'url_shortener_token',
-  USER_DATA: 'url_shortener_user',
+  TOKEN: TOKEN_KEY,
+  TOKEN_KEY: TOKEN_KEY,
   THEME: 'url_shortener_theme',
 } as const;
 

@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-
-// dummy reducer with empty state
-const dummyReducer = (state = {}) => state;
+import userReducer from './userSlice';
 
 export const store = configureStore({
-  reducer: dummyReducer,
+  reducer: {
+    user: userReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

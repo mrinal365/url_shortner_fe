@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_BASE_URL, API_TIMEOUT, STORAGE_KEYS } from '@/constants/api.constants';
+import { API_BASE_URL, API_TIMEOUT, token_key } from '@/constants/api.constants';
 import type { ApiErrorResponse } from '@/types/api.types';
 
 export const apiClient = axios.create({
@@ -13,7 +13,7 @@ export const apiClient = axios.create({
 // Attach auth token if available in the browser
 apiClient.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
-    const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+    const token = localStorage.getItem(token_key)
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -21,16 +21,10 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
-// Remove invalid auth token on 401 Unauthorized
+// Response interceptor - pass errors through without modifying localStorage
 apiClient.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401 && typeof window !== 'undefined') {
-      localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.USER_DATA);
-    }
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Helper to extract error message from API response or network failure

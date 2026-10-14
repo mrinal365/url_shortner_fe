@@ -1,48 +1,80 @@
 'use client';
 
-import React, { useState } from 'react';
+// React & Next.js
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { login } from '@/services/auth.service';
-import { getApiErrorMessage } from '@/services/apiClient';
-import { STORAGE_KEYS } from '@/constants/api.constants';
+
+// Redux Store
+import { useAppDispatch } from '@/store/hooks';
+import { setUser } from '@/store/userSlice';
+
+// UI Components
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Alert from '@/components/ui/Alert';
 
-export const LoginForm: React.FC = () => {
-  const router = useRouter();
+// Services & API Client
+import { login } from '@/services/auth.service';
+import { getApiErrorMessage } from '@/services/apiClient';
 
+// Constants
+import { token_key } from '@/constants/api.constants';
+
+export const LoginForm: React.FC = () => {
+  // Routing & Redux Dispatch
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  // Form State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  // Status State
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Handle Form Submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim() || !password.trim()) return;
+
+    // 1. Validation
+    if (!email.trim()) {
+      setError('Please enter your email address.');
+      return;
+    }
+    if (!password.trim()) {
+      setError('Please enter your password.');
+      return;
+    }
 
     setLoading(true);
     setError(null);
 
+    // 2. Submit Login Request
     try {
       const res = await login({ email: email.trim(), password });
+
+      // 3. Persist Auth Token in LocalStorage & Update Redux
       if (typeof window !== 'undefined') {
-        localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, res.token);
-        localStorage.setItem(STORAGE_KEYS.USER_DATA, JSON.stringify(res.user));
+        localStorage.setItem(token_key, res.token);
       }
+      dispatch(setUser(res.user));
+
+      // 4. Navigate directly to Dashboard (TokenLayout handles /me check & loading)
       router.push('/dashboard');
     } catch (err: unknown) {
+      // 5. Handle Error
       const msg = getApiErrorMessage(err);
       setError(msg);
-    } finally {
       setLoading(false);
     }
   };
 
   return (
     <div className="w-full max-w-[460px] bg-white rounded-[24px] p-8 sm:p-10 shadow-[0_8px_32px_rgba(14,15,12,0.04)] border border-[#0e0f0c]/5">
+      {/* Header */}
       <div className="mb-6">
         <h2 className="font-black text-3xl text-[#0e0f0c] tracking-tight">
           Log in
@@ -52,6 +84,7 @@ export const LoginForm: React.FC = () => {
         </p>
       </div>
 
+      {/* Error Alert */}
       {error && (
         <div className="mb-6">
           <Alert variant="error" onClose={() => setError(null)}>
@@ -60,7 +93,9 @@ export const LoginForm: React.FC = () => {
         </div>
       )}
 
+      {/* Form Fields */}
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Email */}
         <Input
           label="Email address"
           id="login-email"
@@ -71,6 +106,7 @@ export const LoginForm: React.FC = () => {
           placeholder="you@domain.com"
         />
 
+        {/* Password */}
         <div>
           <Input
             label="Password"
@@ -93,6 +129,7 @@ export const LoginForm: React.FC = () => {
           />
         </div>
 
+        {/* Submit Button */}
         <Button
           type="submit"
           variant="primary"
@@ -105,6 +142,7 @@ export const LoginForm: React.FC = () => {
         </Button>
       </form>
 
+      {/* Signup Switch */}
       <div className="mt-6 pt-5 border-t border-[#e8ebe6] text-center">
         <p className="text-sm text-[#454745]">
           Don&apos;t have an account?{' '}
@@ -117,6 +155,7 @@ export const LoginForm: React.FC = () => {
         </p>
       </div>
 
+      {/* Legal Terms */}
       <p className="mt-4 text-center text-xs text-[#868685]">
         By logging in, you agree to our{' '}
         <span className="underline cursor-pointer">Terms of Use</span> and{' '}

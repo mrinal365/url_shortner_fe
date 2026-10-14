@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { APP_CONFIG } from '@/constants/app.constants';
 import { createUrl } from '@/services/url.service';
@@ -11,13 +11,18 @@ import Alert from '@/components/ui/Alert';
 
 export const HeroShortenerCard: React.FC = () => {
   const [inputUrl, setInputUrl] = useState('');
-  const [alias, setAlias] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [latestUrl, setLatestUrl] = useState<UrlItem | null>(null);
   const [copied, setCopied] = useState(false);
-  const [showAliasInput, setShowAliasInput] = useState(false);
   const [showQr, setShowQr] = useState(false);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Automatically focus input cursor on page load
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   // read url from clipboard
   const handlePaste = async () => {
@@ -27,6 +32,7 @@ export const HeroShortenerCard: React.FC = () => {
         if (text && text.trim()) {
           setInputUrl(text.trim());
           if (error) setError(null);
+          inputRef.current?.focus();
         }
       }
     } catch {
@@ -50,7 +56,6 @@ export const HeroShortenerCard: React.FC = () => {
 
     const payload = {
       originalUrl: normalizedUrl,
-      customAlias: alias.trim() || undefined,
     };
 
     try {
@@ -58,17 +63,15 @@ export const HeroShortenerCard: React.FC = () => {
       setLatestUrl(result);
       setShowQr(false);
       setInputUrl('');
-      setAlias('');
     } catch (err: unknown) {
       // offline dev fallback
-      const fallbackCode =
-        alias.trim() || Math.random().toString(36).substring(2, 8);
+      const fallbackCode = Math.random().toString(36).substring(2, 8);
       const fallbackItem: UrlItem = {
         id: Date.now(),
         originalUrl: normalizedUrl,
         shortCode: fallbackCode,
         shortUrl: `https://${APP_CONFIG.DOMAIN}/${fallbackCode}`,
-        customAlias: alias.trim() || null,
+        customAlias: null,
         clicks: 0,
         createdAt: new Date().toISOString(),
       };
@@ -82,7 +85,6 @@ export const HeroShortenerCard: React.FC = () => {
         setLatestUrl(fallbackItem);
         setShowQr(false);
         setInputUrl('');
-        setAlias('');
       } else {
         setError(message);
       }
@@ -146,7 +148,10 @@ export const HeroShortenerCard: React.FC = () => {
             ) : (
               <button
                 type="button"
-                onClick={() => setInputUrl('')}
+                onClick={() => {
+                  setInputUrl('');
+                  inputRef.current?.focus();
+                }}
                 className="text-xs text-[#868685] hover:text-[#0e0f0c] transition cursor-pointer font-medium"
               >
                 Clear
@@ -156,7 +161,7 @@ export const HeroShortenerCard: React.FC = () => {
         </div>
 
         <form onSubmit={handleShortenUrl} className="space-y-3">
-          <div className="group/input relative bg-[#f8faf7] rounded-[20px] p-2 sm:p-2.5 border-2 border-[#0e0f0c]/10 hover:border-[#0e0f0c]/25 focus-within:border-[#0e0f0c] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#0e0f0c]/10 transition-all flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <div className="group/input relative bg-[#f8faf7] rounded-[36px] p-2 sm:p-2.5 border-2 border-green-600 hover:border-[#0e0f0c]/25 focus-within:border-[#0e0f0c] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#0e0f0c]/10 transition-all flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <div className="flex items-center flex-1 min-w-0 px-1">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] bg-[#f4f6f2] text-[#0e0f0c] flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-[#0e0f0c]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -164,6 +169,8 @@ export const HeroShortenerCard: React.FC = () => {
                 </svg>
               </div>
               <input
+                ref={inputRef}
+                autoFocus
                 type="url"
                 required
                 value={inputUrl}
@@ -177,7 +184,10 @@ export const HeroShortenerCard: React.FC = () => {
               {inputUrl && (
                 <button
                   type="button"
-                  onClick={() => setInputUrl('')}
+                  onClick={() => {
+                    setInputUrl('');
+                    inputRef.current?.focus();
+                  }}
                   className="w-7 h-7 rounded-full text-[#868685] hover:text-[#0e0f0c] hover:bg-[#f4f6f2] flex items-center justify-center transition shrink-0 cursor-pointer text-xs"
                   title="Clear input"
                 >
@@ -203,76 +213,11 @@ export const HeroShortenerCard: React.FC = () => {
           </div>
 
           <div className="flex items-center justify-between px-1 pt-1.5">
-            <button
-              type="button"
-              onClick={() => setShowAliasInput(!showAliasInput)}
-              className={`inline-flex items-center gap-2 text-xs font-bold py-1.5 px-3 rounded-full transition-all cursor-pointer ${
-                showAliasInput
-                  ? 'bg-[#0e0f0c] text-white'
-                  : 'bg-[#f4f6f2] hover:bg-[#f4f6f2] text-[#0e0f0c] border border-[#0e0f0c]/10'
-              }`}
-            >
-              <svg
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  showAliasInput ? 'rotate-90' : ''
-                }`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
-              <span>{showAliasInput ? 'Hide custom alias' : '+ Add custom alias'}</span>
-              {!showAliasInput && (
-                <span className="bg-[#9fe870] text-[#0e0f0c] text-[10px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider">
-                  e.g. fibr.click/launch
-                </span>
-              )}
-            </button>
-            <span className="text-[11px] font-medium text-[#868685] hidden sm:inline-flex items-center gap-1.5">
+            <span className="text-[11px] font-medium text-[#868685] inline-flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2ead4b]"></span>
               Free to use • No registration required
             </span>
           </div>
-
-          {showAliasInput && (
-            <div className="pt-2 animate-in fade-in duration-200">
-              <div className="p-4 bg-[#f8faf7] rounded-[18px] border border-[#0e0f0c]/10 transition-all">
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-[#454745] flex items-center gap-1.5">
-                    <span>Custom Alias Slug</span>
-                  </label>
-                  <span className="text-[11px] text-[#868685]">Letters, numbers, and hyphens</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="bg-[#f4f6f2] px-3.5 py-2.5 text-xs sm:text-sm font-mono font-bold text-[#0e0f0c] border border-r-0 border-[#0e0f0c]/20 rounded-l-[14px] flex items-center gap-1.5 shrink-0 select-none">
-                    <svg className="w-3.5 h-3.5 text-[#054d28]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918" />
-                    </svg>
-                    {APP_CONFIG.DOMAIN}/
-                  </span>
-                  <input
-                    type="text"
-                    value={alias}
-                    onChange={(e) =>
-                      setAlias(
-                        e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, '')
-                      )
-                    }
-                    placeholder="custom-alias (e.g. launch)"
-                    className="flex-1 bg-white text-[#0e0f0c] border border-[#0e0f0c]/20 focus:border-[#0e0f0c] rounded-r-[14px] px-3.5 py-2.5 text-xs sm:text-sm font-mono outline-none transition"
-                  />
-                </div>
-                <p className="mt-2 text-[11px] text-[#868685]">
-                  Preview:{' '}
-                  <span className="font-mono font-bold text-[#0e0f0c]">
-                    https://{APP_CONFIG.DOMAIN}/{alias || 'custom-alias'}
-                  </span>
-                </p>
-              </div>
-            </div>
-          )}
         </form>
 
         {error && (
@@ -301,7 +246,6 @@ export const HeroShortenerCard: React.FC = () => {
                   onClick={() => {
                     setLatestUrl(null);
                     setInputUrl('');
-                    setAlias('');
                   }}
                   className="text-xs font-semibold text-[#454745] hover:text-[#0e0f0c] underline transition cursor-pointer"
                 >
@@ -359,11 +303,10 @@ export const HeroShortenerCard: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setShowQr(!showQr)}
-                    className={`border font-bold text-xs sm:text-sm py-2 px-3 rounded-[20px] transition flex items-center gap-1.5 cursor-pointer ${
-                      showQr
-                        ? 'bg-[#0e0f0c] text-white border-[#0e0f0c]'
-                        : 'bg-white hover:bg-[#f4f6f2] text-[#0e0f0c] border-[#0e0f0c]/20'
-                    }`}
+                    className={`border font-bold text-xs sm:text-sm py-2 px-3 rounded-[20px] transition flex items-center gap-1.5 cursor-pointer ${showQr
+                      ? 'bg-[#0e0f0c] text-white border-[#0e0f0c]'
+                      : 'bg-white hover:bg-[#f4f6f2] text-[#0e0f0c] border-[#0e0f0c]/20'
+                      }`}
                     title="Toggle QR Code"
                   >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
